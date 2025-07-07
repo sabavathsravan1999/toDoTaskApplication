@@ -1,0 +1,24 @@
+.app{
+    
+    background-image: url(sfsites/c/resource/todoimg);
+}
+h1{
+    font-size: 25px;
+    font-weight: bold;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    background-color: #A100FF;
+    color: black;
+}
+.incompleted_cls {
+    background-color: #d4d64d;
+    color: darkblue;
+    font-weight: bold;
+}
+.completed_cls{
+    background-color: #70c470;
+    color: blueviolet;
+     font-weight: bold;
+
+}

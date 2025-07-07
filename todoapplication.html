@@ -1,0 +1,92 @@
+<template>
+    <div class="app">
+        <div>
+            <h1>TO DO Application</h1>
+        </div>
+        <div class="slds-grid">
+    <div class="slds-col slds-m-left_small">
+        <!-- INPUT FILEDS -->
+       <lightning-card title="Add New Task" >
+        <div class="add_new_task slds-box slds-theme_shade">
+            <lightning-input label="Enter New Task" name="taskName" onchange={handleChange}
+            value={taskName}
+            required message-when-value-missing="Kindly enter the task name"
+            placeholder="Enter the Task"
+            class="htmlElement">
+
+            </lightning-input>
+            <lightning-input type="date" label="Set End Date" name="taskDate" onchange={handleChange}
+            field-level-help="Default End Date is Todays Date" value={taskDate}>
+            </lightning-input>
+
+            <!-- buttons -->
+            <lightning-button label="Reset" variant="brand" onclick={resetHandler} 
+            class="slds-p-around_medium slds-m-left_medium"></lightning-button>
+            <lightning-button label="Add Task" variant="brand" onclick={addTaskHandler}
+            class="slds-p-around_medium ">
+            </lightning-button>
+        </div>
+        
+
+       </lightning-card>
+    </div>
+    <!-- to do dispay -->
+    <div class="slds-col slds-m-left_medium slds-m-right_medium ">
+        <lightning-card title="To Do List">
+            <div class="slds-p-around_small">
+                <template for:each={incompleteTasks} for:item="currentTaskItem" for:index="loopindex">
+                <div key={currentTaskItem.taskName} class="incompleted_cls slds-box slds-theme_shade"
+                draggable="true" ondragstart={startDragHandler} data-item={loopindex}> 
+                    <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_8-of-12">
+                                <!-- data will be cme here -->
+                                <p class="slds-text-heading_medium">{currentTaskItem.taskName}</p>
+                                <p><lightning-formatted-date-time value={currentTaskItem.taskDate} year="2-digit" month="short" day="2-digit" weekday="long"></lightning-formatted-date-time></p>
+
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <!-- here icon will come -->
+                                <lightning-button-icon icon-name="utility:delete" variant="brand" alternative-text="Delete"   class="slds-m-left_xx-small" title="Delete" onclick={deleteButtonHandler} name={loopindex}></lightning-button-icon>
+                                <lightning-button-icon icon-name="utility:check" variant="brand" alternative-text="Completed"   class="slds-m-left_xx-small" title="Completed" onclick={checkButtonHandler} name={loopindex}></lightning-button-icon>
+
+                            </div>
+                    </div>
+
+                </div>                
+            </template>
+            </div>
+       </lightning-card>
+    </div>
+
+    <!-- Completed Items -->
+    <div class="slds-col">
+        <lightning-card title="Completed Items">
+             <div class="slds-p-around_small">
+                <template for:each={completedTasks} for:item="currentComTaskItem" for:index="loopindex">
+                <div key={currentComTaskItem.taskName} class="completed_cls slds-box slds-theme_shade"
+                ondragover={aloowDropHandler} ondrop={finallyDropedHandler}>  
+                    <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_8-of-12">
+                                <!-- data will be cme here -->
+                                <p class="slds-text-heading_medium">{currentComTaskItem.taskName}</p>
+                                <p><lightning-formatted-date-time value={currentComTaskItem.taskDate} year="2-digit" month="short" day="2-digit" weekday="long"></lightning-formatted-date-time></p>
+
+                            </div>
+                            <!-- Icon for delete button willcome here -->
+                            <div class="slds-col slds-size_4-of-12">
+                                <!-- here icon will come -->
+                                <lightning-button-icon icon-name="utility:delete"    variant="brand" alternative-text="Delete"   class="slds-m-left_xxlarge" title="Delete" name={loopindex} onclick={removeCompleteHandler}></lightning-button-icon>
+                            </div>
+                            
+                    </div>
+
+                </div>                
+            </template>
+            </div>
+
+       </lightning-card>
+    </div>
+</div>
+    </div>
+
+</template>
